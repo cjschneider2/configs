@@ -1,0 +1,23 @@
+startup_message off
+term screen-256color
+terminfo rxvt-unicode ti@:te@:
+
+#default screens
+screen -t vim 0
+split -v
+focus
+screen -t bash 1 bash
+
+#key bindings
+#bindkey "^[Od" prev  # change window with ctrl-left
+#bindkey "^[Oc" next  # change window with ctrl-right
+#for a more Vim like experiance...
+bindkey "^h" prev #previous window = h
+bindkey "^l" next #next window = l
+bindkey "^j" resize -1 #resize window smaller
+bindkey "^k" resize 1  #resize window larger
+
+#hardstatus line
+hardstatus on
+hardstatus alwayslastline
+hardstatus string '%{= kG}%{C}Screen: %{c}%{= kG}[%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{C} %d-%m %{W}%c %{g}]'
