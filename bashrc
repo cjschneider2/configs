@@ -2,6 +2,11 @@
 ###############################################################################
 # Bash initialization
 #
+# There are 3 different types of shells in bash: the login shell, normal shell
+# and interactive shell. Login shells read ~/.profile and interactive shells
+# read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
+# settings made here will also take effect in a login shell.
+#
 # LOGIN:
 # /etc/profile
 #   /etc/profile.env (if exists)
@@ -29,15 +34,24 @@ export CLICOLOR=1
 export LSCOLORS=CxFxGxDxBxegedabagaced
 alias ls='ls -h --color=auto'
 alias ll='ls -lh --color=auto'
-alias grepr='grep --color=auto --recursive'
+alias grepr='grep -I -n --color=auto --recursive'
 alias grep='grep --color=auto'
 alias less='less --RAW-CONTROL-CHARS'
-#--- Customized prompt
+export CLICOLOR=1
+
+# This is the custom status line...
 export PS1="\[\e[0m\]\[\e[01;31m\][\[\e[0m\]\[\e[00;36m\]\w\[\e[0m\]\[\e[01;31m\]]\[\e[0m\]\[\e[00;37m\]\\[\e[0m\]\n\[\e[00;32m\]\u\[\e[0m\]\[\e[01;37m\] @ \[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;37m\] -> "
 #--- Some apps read the EDITOR variable to determine your favorite text editor.
 export EDITOR=/usr/bin/vim
 #--- For forcing git to use a more useful editor than just plain vi...
 export GIT_EDITOR=vim
+#--- Setting vi mode in the shell
+##-- Bash
+set -o vi
+##-- zsh
+# bindkey -v
+##-- ~/.inputrc for readline
+set editing-mode vi
 #--- For building using MAKE we can use set it to use more than one core by default
 export MAKEFLAGS="-j 8"
 #--- For using stuff in a local environment
@@ -54,6 +68,12 @@ export PATH="$HOME/bin:$PATH"
 ##-- Telegram bin
 #export PATH=$PATH:/opt/telegram
 export PATH="$HOME/bin/Telegram:$PATH"
+# For fixing atom's routing through the proxy @ Work
+# (set the proxy in atom with: `apm config set http(s)-proxy http(s)://<IP>:<PORT>` )
+# The following is apparently depreciated
+#export ATOM_NODE_URL=http://gh-contractor-zcbenz.s3.amazonaws.com/atom-shell/dist
+# and this should be used instead
+export ATOM_ELECTRON_URL=http://gh-contractor-zcbenz.s3.amazonaws.com/atom-shell/dist
 
 #--- For AdhoC++
 #export FC=/usr/bin/gfortran
